@@ -1,7 +1,6 @@
 # Homework 8: React router
 
-**Сайт:**  
-http://otus-hw.s3-website.us-east-2.amazonaws.com/
+**Сайт:** http://otus-hw.s3-website.us-east-2.amazonaws.com
 
 **Цель:**  
 Реализовать переход между страницами в приложении

@@ -3,7 +3,7 @@ name: Upload Website
 on:
  push:
    branches:
-     - hw_5_forms
+     - hw7_code_p2
 
 jobs:
  Deploy:
