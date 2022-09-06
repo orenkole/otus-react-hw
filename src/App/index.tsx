@@ -37,7 +37,7 @@ const App = () => {
           rowGap="50px"
         >
           <SignInForm />
-          <ControlPanel 
+          <ControlPanel
             dispatch={dispatch}
             fillingPercentage={state.fillingPercentage}
             width={state.width}
