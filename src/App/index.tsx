@@ -10,7 +10,7 @@ import { Container } from "@/elements/Container";
 import { Box } from "@/elements/Box";
 import { appStyles } from "./style";
 import { SignInForm } from "@/components/SignInForm";
-
+// test push
 const initialFieldParams = {width: 5, height: 5, fillingPercentage: 0};
 
 export const initialState: AppStateType = {
@@ -37,7 +37,7 @@ const App = () => {
           rowGap="50px"
         >
           <SignInForm />
-          <ControlPanel 
+          <ControlPanel
             dispatch={dispatch}
             fillingPercentage={state.fillingPercentage}
             width={state.width}
