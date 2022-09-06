@@ -1,5 +1,5 @@
-import { FieldStateType } from '@/common/types';
-import { nanoid } from 'nanoid';
+import { FieldStateType } from "@/common/types";
+import { nanoid } from "nanoid";
 
 export const placeItemsIntoCells = (args: {
   field: FieldStateType;
@@ -111,7 +111,7 @@ export const updateSize = (args: {
   );
   const itemsLeftToPlace = totalItemsToPlace - itemsAlreadyPlaced;
   let fieldFilled: FieldStateType = newFieldInfo;
-  console.log(' items left to place', itemsLeftToPlace);
+  console.log(" items left to place", itemsLeftToPlace);
   if (itemsLeftToPlace > 0) {
     if (indexesToAdjust.length < itemsLeftToPlace) {
       const wholeFieldIndexes = newFieldInfo

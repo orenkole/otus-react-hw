@@ -1,5 +1,5 @@
-import { Dispatch } from 'react';
-import { ActionsType } from '@/common/types';
+import { Dispatch } from "react";
+import { ActionsType } from "@/common/types";
 
 // https://www.geeksforgeeks.org/how-to-create-a-ripple-effect-on-click-the-button/
 const handleRipple = (args: {
@@ -7,7 +7,7 @@ const handleRipple = (args: {
   ref: React.RefObject<HTMLDivElement>;
 }) => {
   const cell = args.e.currentTarget as HTMLElement; // https://www.designcise.com/web/tutorial/how-to-fix-property-does-not-exist-on-type-eventtarget-typescript-error
-  args.ref?.current?.classList.add('active'); // https://www.designcise.com/web/tutorial/how-to-fix-object-is-possibly-null-typescript-error-when-using-useref-react-hook
+  args.ref?.current?.classList.add("active"); // https://www.designcise.com/web/tutorial/how-to-fix-object-is-possibly-null-typescript-error-when-using-useref-react-hook
   const x = args.e.clientX - cell.offsetLeft;
   const y = args.e.clientY - cell.offsetTop;
   if (args.ref && args.ref.current) {
@@ -15,7 +15,7 @@ const handleRipple = (args: {
     args.ref.current.style.top = `${y}px`;
   }
   setTimeout(() => {
-    args.ref?.current?.classList.remove('active');
+    args.ref?.current?.classList.remove("active");
   }, 300);
 };
 
@@ -26,7 +26,7 @@ const handleClick = (args: {
   payload: string;
 }) => {
   handleRipple({ ...args });
-  args.dispatch({ type: 'CELL_CLICK', payload: args.payload });
+  args.dispatch({ type: "CELL_CLICK", payload: args.payload });
 };
 
 export { handleRipple };

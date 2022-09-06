@@ -1,13 +1,13 @@
-import React, { Dispatch, useEffect } from 'react';
-import { changeHandler, ActionsType, resetHandler } from '@/common/types';
+import React, { Dispatch, useEffect } from "react";
+import { changeHandler, ActionsType, resetHandler } from "@/common/types";
 import {
   radioToolbarStyle,
   formStyle,
   controlButtonsStyle,
   inputStyle,
   fieldSizesStyle,
-} from './style';
-import { Button } from '@/elements/Button';
+} from "./style";
+import { Button } from "@/elements/Button";
 
 export type ControlPanelPropsType = {
   dispatch: Dispatch<ActionsType>;
@@ -17,22 +17,22 @@ export type ControlPanelPropsType = {
 };
 
 const onFillingPercentageChange: changeHandler = ({ ev, dispatch }) => {
-  dispatch({ type: 'UPDATE_FILLING_PERCENTAGE', payload: +ev.target.value });
+  dispatch({ type: "UPDATE_FILLING_PERCENTAGE", payload: +ev.target.value });
 };
 
 const onWidthChange: changeHandler = ({ ev, dispatch }) => {
   const width = +ev.target.value >= 1 ? +ev.target.value : 1;
-  dispatch({ type: 'UPDATE_WIDTH', payload: width });
+  dispatch({ type: "UPDATE_WIDTH", payload: width });
 };
 
 const onHeightChange: changeHandler = ({ ev, dispatch }) => {
   const height = +ev.target.value >= 1 ? +ev.target.value : 1;
-  dispatch({ type: 'UPDATE_HEIGHT', payload: height });
+  dispatch({ type: "UPDATE_HEIGHT", payload: height });
 };
 
 const onReset: resetHandler = ({ dispatch }) => {
-  console.log('on reset');
-  dispatch({ type: 'RESET' });
+  console.log("on reset");
+  dispatch({ type: "RESET" });
 };
 
 const onSubmit = (e: React.SyntheticEvent) => {
