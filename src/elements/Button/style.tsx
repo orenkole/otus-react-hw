@@ -1,5 +1,5 @@
 import { InterpolationWithTheme } from "@emotion/core";
-import { keyframes } from "@emotion/react";
+import { keyframes, Theme } from "@emotion/react";
 
 const ripple = keyframes`
 	0% {
@@ -15,7 +15,8 @@ const ripple = keyframes`
 	}
 `;
 
-const ButtonStyle: InterpolationWithTheme<any> = {
+const ButtonStyle: InterpolationWithTheme<Theme> = {
+  fontSize: "14px",
   backgroundColor: "#fff",
   display: "inline-block",
   color: "black",
@@ -30,7 +31,7 @@ const ButtonStyle: InterpolationWithTheme<any> = {
   "&:hover": {
     outline: 0,
     textDecoration: "none",
-    backgroundColor: "#eef"
+    backgroundColor: "#eef",
   },
   "&:not(:disabled)": {
     cursor: "pointer",
@@ -57,7 +58,7 @@ const ButtonStyle: InterpolationWithTheme<any> = {
   },
   "& .ripple.active .ripple-circle": {
     animation: `${ripple} 0.4s ease-in`,
-  }
+  },
 };
 
-export {ButtonStyle};
+export { ButtonStyle };

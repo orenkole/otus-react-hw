@@ -1,13 +1,10 @@
 import React from "react";
 
-type BoxPropsType = { children: React.ReactNode; } & any
+type BoxPropsType = { children: React.ReactNode } & React.CSSProperties;
 
-const Box = ({children, ...styleParams}: BoxPropsType) => {
-  return (
-    <div css={styleParams}>
-      {children}
-    </div>
-  );
+const Box = (props: BoxPropsType) => {
+  const { children, ...cssProps } = props;
+  return <div css={{ ...cssProps }}>{children}</div>;
 };
 
-export {Box};
+export { Box };

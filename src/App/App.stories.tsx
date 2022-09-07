@@ -5,7 +5,7 @@ import { App } from ".";
 const Story = {
   title: "App",
   component: App,
-  argTypes: {}
+  argTypes: {},
 };
 
 const Template: StoryType = (args) => <App {...args} />;

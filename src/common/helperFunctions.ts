@@ -60,9 +60,11 @@ export const setInitialFieldInfo = (args: {
     }))
   );
   const fillingProbability =
-    (args.fillingPercentage > 100 && 1) ||
-    (args.fillingPercentage < 0 && 0) ||
-    args.fillingPercentage / 100;
+    args.fillingPercentage > 100
+      ? 1
+      : args.fillingPercentage < 0
+        ? 0
+        : args.fillingPercentage / 100;
   const indexesOfEmptyCells = field
     .map((row) => row.map((cell) => ({ x: cell.x, y: cell.y })))
     .flat();
@@ -84,9 +86,11 @@ export const updateSize = (args: {
   fillingPercentage: number;
 }): FieldStateType => {
   const fillingProbability: number =
-    (args.fillingPercentage > 100 && 1) ||
-    (args.fillingPercentage < 0 && 0) ||
-    args.fillingPercentage / 100;
+    args.fillingPercentage > 100
+      ? 1
+      : args.fillingPercentage < 0
+        ? 0
+        : args.fillingPercentage / 100;
   const indexesToAdjust: Array<{ x: number; y: number }> = [];
   const newFieldInfo = Array.from({ length: args.height }, (_, y) =>
     Array.from({ length: args.width }, (_, x) => {
@@ -111,7 +115,6 @@ export const updateSize = (args: {
   );
   const itemsLeftToPlace = totalItemsToPlace - itemsAlreadyPlaced;
   let fieldFilled: FieldStateType = newFieldInfo;
-  console.log(" items left to place", itemsLeftToPlace);
   if (itemsLeftToPlace > 0) {
     if (indexesToAdjust.length < itemsLeftToPlace) {
       const wholeFieldIndexes = newFieldInfo
@@ -141,13 +144,17 @@ export const updateSize = (args: {
 };
 
 export const updateFilling = (args: {
+  width: number;
+  height: number;
   prevFieldInfo: FieldStateType;
   fillingPercentage: number;
 }): FieldStateType => {
   const fillingProbability: number =
-    (args.fillingPercentage > 100 && 1) ||
-    (args.fillingPercentage < 0 && 0) ||
-    args.fillingPercentage / 100;
+    args.fillingPercentage > 100
+      ? 1
+      : args.fillingPercentage < 0
+        ? 0
+        : args.fillingPercentage / 100;
   const itemsAlreadyPlaced = args.prevFieldInfo
     .flat()
     .filter((item) => item.cellMode === 1).length;

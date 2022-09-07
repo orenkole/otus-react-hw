@@ -6,8 +6,10 @@ const Row = (props: { children: React.ReactNode }) => {
       css={{
         display: "flex",
       }}
-    >{props.children}</div>
+    >
+      {props.children}
+    </div>
   );
 };
 
-export {Row};
+export { Row };
