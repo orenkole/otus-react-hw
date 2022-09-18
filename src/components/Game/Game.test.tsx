@@ -1,17 +1,17 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { App } from ".";
+import { Game } from ".";
+import { state } from "@/mocks/state";
 
-describe("App", () => {
+const dispatch = jest.fn();
+describe("Game", () => {
   test("click on cell changes state", () => {
-    render(
-      <App />
-    );
+    render(<Game dispatch={dispatch} state={state} />);
     const cell = screen.queryAllByText("0")[0];
-    if(cell) {
+    if (cell) {
       userEvent.click(cell);
     }
-    expect(cell).toHaveTextContent("1");
+    expect(dispatch).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,6 +1,6 @@
 import React from "react";
 import { Story as StoryType } from "@storybook/react";
-import {Cell, CellPropsType} from ".";
+import { Cell, CellPropsType } from ".";
 
 const Story = {
   title: "Cell",
@@ -15,7 +15,7 @@ CellInitial.args = {
     cellMode: 1,
     x: 2,
     y: 2,
-    id: "1"
+    id: "1",
   },
 };
 

@@ -78,7 +78,7 @@ describe("Place Items Into Cells", () => {
           .map((cell) => ({ x: cell.x, y: cell.y })),
       })
         .flat()
-        .filter((cell) => cell.cellMode === 1)
+        .filter((cell) => cell.cellMode === 1),
     ).toHaveLength(3);
   });
 });
@@ -91,7 +91,7 @@ describe("Remove Items From Cells", () => {
         itemsLeftToRemove: 1,
       })
         .flat()
-        .filter((cell) => cell.cellMode === 1)
+        .filter((cell) => cell.cellMode === 1),
     ).toHaveLength(0);
   });
 });
@@ -106,7 +106,7 @@ describe("update field", () => {
         fillingPercentage: 50,
       })
         .flat()
-        .filter((cell) => cell.cellMode === 1)
+        .filter((cell) => cell.cellMode === 1),
     ).toHaveLength(5);
   });
   test("shrink size", () => {
@@ -118,18 +118,20 @@ describe("update field", () => {
         fillingPercentage: 50,
       })
         .flat()
-        .filter((cell) => cell.cellMode === 1)
+        .filter((cell) => cell.cellMode === 1),
     ).toHaveLength(1);
   });
 
   test("change filling percentage", () => {
     expect(
       updateFilling({
+        width: 2,
+        height: 2,
         prevFieldInfo: FieldMock,
         fillingPercentage: 50,
       })
         .flat()
-        .filter((cell) => cell.cellMode === 1)
+        .filter((cell) => cell.cellMode === 1),
     ).toHaveLength(2);
   });
 });

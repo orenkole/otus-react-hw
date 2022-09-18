@@ -14,15 +14,16 @@ const ripple = keyframes`
 `;
 
 const getCellBoxStyle = (args: {
-  cellMode: number
+  cellMode: number;
 }): InterpolationWithTheme<unknown> => ({
+  fontSize: "10px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   padding: "4px",
   border: "1px solid black",
-  width: "20px",
-  height: "20px",
+  width: "10px",
+  height: "10px",
   // position ripple span
   position: "relative",
   overflow: "hidden",
@@ -30,7 +31,7 @@ const getCellBoxStyle = (args: {
   "& .active": {
     position: "absolute",
     borderRadius: "50%",
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    backgroundColor: "rgba(0, 255, 0, 0.3)",
     width: "100px",
     height: "100px",
     marginTop: "-50px",
@@ -40,6 +41,4 @@ const getCellBoxStyle = (args: {
   },
 });
 
-export {
-  getCellBoxStyle,
-};
+export { getCellBoxStyle };

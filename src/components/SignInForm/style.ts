@@ -1,6 +1,7 @@
 import { InterpolationWithTheme } from "@emotion/core";
+import { Theme } from "@emotion/react";
 
-const formStyle: InterpolationWithTheme<any> = {
+const formStyle: InterpolationWithTheme<Theme> = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -11,7 +12,7 @@ const formStyle: InterpolationWithTheme<any> = {
   padding: "16px",
 };
 
-const inputStyle: InterpolationWithTheme<any> = {
+const inputStyle: InterpolationWithTheme<Theme> = {
   padding: "4px",
   border: "1px solid lightgrey",
   borderRadius: "4px",
@@ -20,13 +21,9 @@ const inputStyle: InterpolationWithTheme<any> = {
   marginLeft: "4px",
 };
 
-const controlButtonsStyle: InterpolationWithTheme<any> = {
+const controlButtonsStyle: InterpolationWithTheme<Theme> = {
   display: "flex",
   gap: "4px",
 };
 
-export {
-  formStyle,
-  inputStyle,
-  controlButtonsStyle,
-};
+export { formStyle, inputStyle, controlButtonsStyle };

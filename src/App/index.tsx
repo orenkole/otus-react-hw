@@ -1,56 +1,41 @@
-import React, {useReducer} from "react";
-import { Field } from "@/components/Field";
-import { ControlPanel } from "@/components/ControlPanel";
-import {
-  AppStateType,
-} from "@/common/types";
+import React, { useReducer } from "react";
+import { Route, BrowserRouter, Routes } from "react-router-dom";
+
+import { AppStateType } from "@/common/types";
 import { reducer } from "@/common/reducer";
 import { setInitialFieldInfo } from "@/common/helperFunctions";
-import { Container } from "@/elements/Container";
-import { Box } from "@/elements/Box";
 import { appStyles } from "./style";
+import { GameForAuthorized } from "@/components/Game";
 import { SignInForm } from "@/components/SignInForm";
 
-const initialFieldParams = {width: 5, height: 5, fillingPercentage: 0};
-
+const initialFieldParams = { width: 5, height: 5, fillingPercentage: 0 };
+// test format
+/* istanbul ignore next */
 export const initialState: AppStateType = {
   fieldInfo: setInitialFieldInfo({
     width: initialFieldParams.width,
     height: initialFieldParams.height,
-    fillingPercentage: initialFieldParams.fillingPercentage
+    fillingPercentage: initialFieldParams.fillingPercentage,
   }),
   fillingPercentage: initialFieldParams.fillingPercentage,
   width: initialFieldParams.width,
-  height: initialFieldParams.height
+  height: initialFieldParams.height,
+  login: localStorage.getItem("login") || "",
 };
 
 const App = () => {
-
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <div css={appStyles}>
-      <Container>
-        <Box
-          display="grid"
-          justifyItems="center"
-          rowGap="50px"
-        >
-          <SignInForm />
-          <ControlPanel
-            dispatch={dispatch}
-            fillingPercentage={state.fillingPercentage}
-            width={state.width}
-            height={state.height}
-          />
-          <Field
-            fieldInfo={state.fieldInfo}
-            dispatch={dispatch}
-          />
-        </Box>
-      </Container>
-    </div>
+    <BrowserRouter>
+      <div css={appStyles}>
+        <Routes>
+          <Route path="/login" element={<SignInForm dispatch={dispatch} state={state} />} />
+          <Route path="/" element={<GameForAuthorized dispatch={dispatch} state={state} />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 };
 
-export {App};
+export { App };

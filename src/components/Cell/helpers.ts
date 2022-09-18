@@ -29,4 +29,4 @@ const handleClick = (args: {
   args.dispatch({ type: "CELL_CLICK", payload: args.payload });
 };
 
-export { handleRipple };
+export { handleRipple, handleClick };

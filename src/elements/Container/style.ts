@@ -4,4 +4,4 @@ const ContainerStyle = {
   margin: "auto",
 };
 
-export {ContainerStyle};
+export { ContainerStyle };
