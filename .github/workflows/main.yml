@@ -3,7 +3,7 @@ name: Upload Website
 on:
  push:
    branches:
-     - hw8_start
+     - hw
 
 jobs:
  Deploy:

@@ -3,8 +3,9 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { SignInForm } from ".";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { appStyles } from "@/App/style";
-import { state } from "@/mocks/state";
+import { initialStateMock } from "@/mocks/initialStateMock";
 import userEvent from "@testing-library/user-event";
+import {signInFormReducer, LOGIN} from "@/components/SignInForm/redux";
 
 const dispatch = jest.fn();
 
@@ -14,7 +15,7 @@ describe("Sign in form rendering", () => {
       <BrowserRouter>
         <div css={appStyles}>
           <Routes>
-            <Route path="/" element={<SignInForm dispatch={dispatch} state={state} />} />
+            <Route path="/" element={<SignInForm dispatch={dispatch} state={initialStateMock} />} />
           </Routes>
         </div>
       </BrowserRouter>,
@@ -31,7 +32,7 @@ describe("Sign in form rendering", () => {
       <BrowserRouter>
         <div css={appStyles}>
           <Routes>
-            <Route path="/" element={<SignInForm dispatch={dispatch} state={state} />} />
+            <Route path="/" element={<SignInForm dispatch={dispatch} state={initialStateMock} />} />
           </Routes>
         </div>
       </BrowserRouter>,
@@ -43,5 +44,14 @@ describe("Sign in form rendering", () => {
       userEvent.click(submitButton);
       expect(dispatch).toHaveBeenCalledWith({ type: "LOGIN", payload: "Oleh" });
     }
+  });
+});
+
+describe("Sign in form redux", () => {
+  test("Login action should return state with login info", () => {
+    expect(signInFormReducer(initialStateMock, {
+      type: LOGIN,
+      payload: { login: "Oleh" }
+    })).toEqual({...initialStateMock, login: "Oleh"});
   });
 });
