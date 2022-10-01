@@ -1,4 +1,6 @@
-export const state = {
+import { State } from "@/redux/state";
+
+export const initialStateMock: State = {
   fieldInfo: [
     [
       {
@@ -164,5 +166,5 @@ export const state = {
   fillingPercentage: 0,
   width: 5,
   height: 5,
-  login: "Oleh",
+  login: "",
 };

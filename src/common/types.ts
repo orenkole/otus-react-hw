@@ -9,7 +9,7 @@ export type AppStateType = {
 };
 
 export type CellInfoType = {
-  cellMode: number;
+  cellMode: 0 | 1;
   x: number;
   y: number;
   id: string;
