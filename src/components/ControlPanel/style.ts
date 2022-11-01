@@ -1,8 +1,6 @@
-import { InterpolationWithTheme } from "@emotion/core";
-import { Theme } from "@emotion/react";
+import { css } from "@emotion/react";
 
-// https://markheath.net/post/customize-radio-button-css
-const radioToolbarStyle: InterpolationWithTheme<Theme> = {
+const radioToolbarStyle = css({
   display: "inline-flex",
   gap: "4px",
   maxWidth: "fit-content",
@@ -27,9 +25,9 @@ const radioToolbarStyle: InterpolationWithTheme<Theme> = {
   "& label:hover": {
     backgroundColor: "#eef",
   },
-};
+});
 
-const formStyle: InterpolationWithTheme<Theme> = {
+const formStyle = css({
   display: "grid",
   gridTemplateColumns: "max-content max-content",
   columnGap: "16px",
@@ -37,16 +35,16 @@ const formStyle: InterpolationWithTheme<Theme> = {
   border: "1px solid lightgrey",
   borderRadius: "4px",
   padding: "16px",
-};
+});
 
-const controlButtonsStyle: InterpolationWithTheme<Theme> = {
+const controlButtonsStyle = css({
   display: "flex",
   gap: "4px",
-};
+});
 
-const fieldSizesStyle = {
+const fieldSizesStyle = css({
   display: "inline-flex",
   gap: "8px",
-};
+});
 
 export { radioToolbarStyle, formStyle, controlButtonsStyle, fieldSizesStyle };
