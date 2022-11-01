@@ -13,7 +13,7 @@ export const reducers = {
 
 export const rootReducer = combineReducers({ ...reducers });
 
-export function setupStore(preloadedState?: PreloadedState<RootState>) {
+export function setupStore(preloadedState: PreloadedState<RootState> = {}) {
   return configureStore({
     reducer: rootReducer,
     preloadedState,
