@@ -1,10 +1,13 @@
-import React, { Dispatch, useRef } from "react";
-import { ActionsType } from "@/common/types";
+import React, { useRef } from "react";
 import { getCellBoxStyle } from "./style";
 import { handleRipple } from "./helpers";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { CellMode } from "@/common/types";
+import { fieldActions } from "@/components/ControlPanel/redux";
 
 export type CellInfoType = {
-  cellMode: number;
+  cellMode: CellMode;
   x: number;
   y: number;
   id: string;
@@ -12,15 +15,15 @@ export type CellInfoType = {
 
 export type CellPropsType = {
   cellInfo: CellInfoType;
-  dispatch: Dispatch<ActionsType>;
 };
 
 const Cell = (props: CellPropsType) => {
+  const dispatch = useDispatch<AppDispatch>();
   const rippleElementRef = useRef<HTMLDivElement>(null);
 
   const handleClick = (args: { e: React.MouseEvent; ref: React.RefObject<HTMLDivElement> }) => {
     handleRipple({ ...args });
-    props.dispatch({ type: "CELL_CLICK", payload: props.cellInfo.id });
+    dispatch(fieldActions.cellClick({ id: props.cellInfo.id }));
   };
 
   const onClick = (e: React.MouseEvent) => {
@@ -28,9 +31,9 @@ const Cell = (props: CellPropsType) => {
   };
 
   return (
-    <div css={getCellBoxStyle({ cellMode: props.cellInfo.cellMode })} onClick={onClick}>
-      <span>{props.cellInfo.cellMode}</span>
-      <div ref={rippleElementRef}></div>
+    <div css={getCellBoxStyle({ cellMode: props.cellInfo.cellMode })} onClick={onClick} data-testid={`row-${props.cellInfo.y}_column-${props.cellInfo.x}`}>
+      <span data-testid={`cellMode-${props.cellInfo.cellMode}`}>{props.cellInfo.cellMode}</span>
+      <div ref={rippleElementRef} data-testid="ripple"></div>
     </div>
   );
 };

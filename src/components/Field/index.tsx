@@ -1,24 +1,23 @@
-import React, { Dispatch } from "react";
+import React  from "react";
 import { Cell } from "@/components/Cell";
 import { Row } from "@/components/Row";
-import { ActionsType, FieldStateType } from "@/common/types";
+import { FieldInfoType } from "@/common/types";
 
 export type FieldPropsType = {
-  fieldInfo: FieldStateType;
-  dispatch: Dispatch<ActionsType>;
+  fieldInfo: FieldInfoType;
 };
 
 const Field = (props: FieldPropsType) => {
-  const { fieldInfo, dispatch } = props;
+  const { fieldInfo } = props;
   return (
-    <div>
-      {fieldInfo.map((row) => (
-        <Row key={row[0].y}>
+    <div key="_">
+      {fieldInfo.map((row) => {
+        return <Row key={row[0]?.y} rowNum={row[0]?.y}>
           {row.map((cell) => {
-            return <Cell key={cell.id} cellInfo={cell} dispatch={dispatch} />;
+            return <Cell key={cell.id} cellInfo={cell} />;
           })}
-        </Row>
-      ))}
+        </Row>;
+      })}
     </div>
   );
 };

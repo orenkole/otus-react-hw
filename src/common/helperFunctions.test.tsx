@@ -5,7 +5,9 @@ import {
   updateFilling,
 } from "./helperFunctions";
 
-const FieldMock = [
+import { FieldInfoType } from "@/common/types";
+
+const FieldMock: FieldInfoType = [
   [
     {
       cellMode: 0,
@@ -36,7 +38,7 @@ const FieldMock = [
   ],
 ];
 
-const FieldMockForShrinkSize = [
+const FieldMockForShrinkSize: FieldInfoType = [
   [
     {
       cellMode: 1,

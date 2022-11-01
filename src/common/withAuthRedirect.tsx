@@ -1,15 +1,17 @@
-import React from "react";
+import React  from "react";
 import { Navigate } from "react-router-dom";
 
-function WithAuthRedirect<P extends object>(Component: React.ComponentType<P>) {
-  return function myFunc(props: P) {
-    const login = localStorage.getItem("login");
-    if (!login) {
-      return <Navigate replace to="/login" />;
-    }
-    return <Component {...props} />;
-  };
+interface Props {
+  children: React.ReactNode;
+  isLoggedIn: boolean;
 }
+
+const WithAuthRedirect = (props: Props) => {
+  if (props.isLoggedIn) {
+    return <>{props.children}</>;
+  }
+  return <Navigate replace to="/login" />;
+};
 
 WithAuthRedirect.displayName = "WithAuthRedirect";
 

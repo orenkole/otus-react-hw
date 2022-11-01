@@ -1,9 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { Field } from ".";
+import { renderWithProviders } from "@/utils/test-utils";
+import { FieldInfoType } from "@/common/types";
 
-const dispatch = jest.fn();
-const FieldStateMock = [
+const FieldStateMock: FieldInfoType = [
   [
     {
       cellMode: 0,
@@ -36,7 +37,7 @@ const FieldStateMock = [
 
 describe("Field", () => {
   test("renders Field component", () => {
-    render(<Field fieldInfo={FieldStateMock} dispatch={dispatch} />);
+    renderWithProviders(<Field fieldInfo={FieldStateMock} />);
     expect(screen.getAllByText(/\d+/)).toHaveLength(4);
   });
 });

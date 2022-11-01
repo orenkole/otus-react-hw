@@ -1,13 +1,19 @@
 import React from "react";
 import { Story as StoryType } from "@storybook/react";
 import { Field, FieldPropsType } from ".";
+import { Provider } from "react-redux";
+import { setupStore } from "@/redux/store";
 
 const Story = {
   title: "Field",
   component: Field,
 };
 
-const Template: StoryType<FieldPropsType> = (args) => <Field {...args} />;
+const Template: StoryType<FieldPropsType> = (args) => (
+  <Provider store={setupStore()}><Field {...args} />
+    <Field {...args} />
+  </Provider>
+);
 
 export const EmptyField = Template.bind({});
 EmptyField.args = {

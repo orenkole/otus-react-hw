@@ -1,39 +1,38 @@
-import { Dispatch } from "react";
+import React from "react";
+import { AppDispatch } from "@/redux/store";
 
-export type AppStateType = {
-  fieldInfo: FieldStateType;
+export type FieldStateType = {
+  fieldInfo: FieldInfoType;
   fillingPercentage: number;
   width: number;
   height: number;
+};
+
+export type AuthStateType = {
   login: string;
 };
 
+export type AppStateType = AuthStateType | FieldStateType;
+
+export type CellMode = 0 | 1;
+
 export type CellInfoType = {
-  cellMode: 0 | 1;
+  cellMode: CellMode;
   x: number;
   y: number;
   id: string;
 };
 
-export type FieldStateType = CellInfoType[][];
-
-export type ActionsType =
-  | { type: "UPDATE_FILLING_PERCENTAGE"; payload: number }
-  | { type: "UPDATE_WIDTH"; payload: number }
-  | { type: "UPDATE_HEIGHT"; payload: number }
-  | { type: "CELL_CLICK"; payload: string }
-  | { type: "RESET" }
-  | { type: "LOGIN"; payload: string }
-  | { type: "LOGOUT" };
+export type FieldInfoType = CellInfoType[][];
 
 export type changeHandler = (args: {
   ev: React.ChangeEvent<HTMLInputElement>;
-  dispatch: Dispatch<ActionsType>;
+  dispatch: AppDispatch;
 }) => void;
 
-export type resetHandler = (args: { dispatch: Dispatch<ActionsType> }) => void;
+export type resetHandler = (args: { dispatch: AppDispatch }) => void;
 
 export type formSubmitHandler = (args: {
   ev: React.SyntheticEvent;
-  dispatch: Dispatch<ActionsType>;
+  dispatch: AppDispatch;
 }) => void;

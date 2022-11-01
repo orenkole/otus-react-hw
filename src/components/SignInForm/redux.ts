@@ -1,34 +1,21 @@
-import { State } from "@/redux/state";
-
-export const LOGIN = "components/SignInForm/LOGIN";
-
 type LoginPayload = {
   login: string;
 };
 
-type LoginAction = {
-  type: typeof LOGIN;
-  payload: LoginPayload;
-};
+import { authInitialState } from "@/redux/state";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export const loginAC = (payload: LoginPayload): LoginAction => ({
-  type: LOGIN,
-  payload,
+const { reducer, actions } = createSlice({
+  name: "auth",
+  initialState: authInitialState,
+  reducers: {
+    login: (state, action: PayloadAction<LoginPayload>) => {
+      state.login = action.payload.login;
+    },
+    logout: (state) => {
+      state.login = "";
+    },
+  },
 });
 
-type LoginActionType = LoginAction;
-
-export const signInFormReducer = (
-  state: State,
-  action: LoginActionType
-): State => {
-  switch (action.type) {
-  case LOGIN:
-    return {
-      ...state,
-      login: action.payload.login,
-    };
-  default:
-    return state;
-  }
-};
+export { reducer as authReducer, actions as authActions };

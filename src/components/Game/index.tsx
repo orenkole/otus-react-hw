@@ -1,49 +1,52 @@
-import React, { Dispatch } from "react";
+import React  from "react";
 import { Field } from "@/components/Field";
 import { ControlPanel } from "@/components/ControlPanel";
-import { ActionsType, AppStateType } from "@/common/types";
 import { Container } from "@/elements/Container";
 import { Box } from "@/elements/Box";
 import { WithAuthRedirect } from "@/common/withAuthRedirect";
 import { Button } from "@/elements/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { authActions } from "@/components/SignInForm/redux";
 
-type GamePropsType = {
-  dispatch: Dispatch<ActionsType>;
-  state: AppStateType;
-};
-
-const handleLogout = (dispatch: Dispatch<ActionsType>) => {
+const handleLogout = (dispatch: AppDispatch) => {
   localStorage.removeItem("login");
-  dispatch({ type: "LOGOUT" });
+  dispatch(authActions.logout({}));
 };
 
-const Game = ({ dispatch, state }: GamePropsType) => {
+const Game = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const gameState = useSelector((state: RootState) => state.fieldReducer);
+  const authState = useSelector((state: RootState) => state.authReducer);
   return (
     <>
       <Box position="absolute" alignContent="center" display="flex" gap="8px">
-        <span>{state.login}</span>
+        <span>{authState.login}</span>
         <Button
           onClick={() => {
             handleLogout(dispatch);
           }}
         >
-          Выход
+          Log out
         </Button>
       </Box>
       <Container>
         <Box display="grid" justifyItems="center" rowGap="50px">
           <ControlPanel
-            dispatch={dispatch}
-            fillingPercentage={state.fillingPercentage}
-            width={state.width}
-            height={state.height}
+            fillingPercentage={gameState.fillingPercentage}
+            width={gameState.width}
+            height={gameState.height}
           />
-          <Field fieldInfo={state.fieldInfo} dispatch={dispatch} />
+          <Field fieldInfo={gameState.fieldInfo} />
         </Box>
       </Container>
     </>
   );
 };
 
-const GameForAuthorized = WithAuthRedirect(Game);
+const GameForAuthorized = () => {
+  const authState = useSelector((state: RootState) => state.authReducer);
+  const isLoggedIn = Boolean(authState.login);
+  return <WithAuthRedirect isLoggedIn={isLoggedIn}><Game /></WithAuthRedirect>;
+};
 export { GameForAuthorized, Game };

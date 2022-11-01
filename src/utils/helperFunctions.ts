@@ -1,5 +1,5 @@
-export const cloneObj = (obj: any) => {
-  const newObj: any = {};
+export const cloneObj = (obj: Record<string, any>) => {
+  const newObj: Record<string, any> = {};
   for (const key in obj) {
     if (typeof obj[key] !== "object") {
       newObj[key] = obj[key];
