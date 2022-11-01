@@ -1,20 +1,18 @@
-import React, { Dispatch } from "react";
+import React  from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { formStyle, controlButtonsStyle } from "./style";
 import { Button } from "@/elements/Button";
 import { Container } from "@/elements/Container";
 import { Box } from "@/elements/Box";
 import { CustomInput } from "@/elements/CustomInput/CustomInput.index";
-import { ActionsType, AppStateType, formSubmitHandler } from "@/common/types";
+import { formSubmitHandler } from "@/common/types";
+import { AppDispatch } from "@/redux/store";
+import { authActions } from "@/components/SignInForm/redux";
 
-export type SignInFormPropsType = {
-  dispatch: Dispatch<ActionsType>;
-  state: AppStateType;
-};
-
-const SignInForm = (props: SignInFormPropsType) => {
+const SignInForm = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { dispatch } = props;
 
   const onSubmit: formSubmitHandler = ({ ev, dispatch }) => {
     ev.preventDefault();
@@ -22,7 +20,7 @@ const SignInForm = (props: SignInFormPropsType) => {
     const formData = new FormData(formElement);
     const login = formData.get("login");
     if (typeof login === "string" && login.length > 0) {
-      dispatch({ type: "LOGIN", payload: login });
+      dispatch(authActions.login({ login }));
       localStorage.setItem("login", login);
       navigate("/", { replace: true });
     }

@@ -1,11 +1,11 @@
-import { FieldStateType } from "@/common/types";
-import { nanoid } from "nanoid";
+import { FieldInfoType } from "@/common/types";
+import { nanoid } from "@reduxjs/toolkit";
 
 export const placeItemsIntoCells = (args: {
-  field: FieldStateType;
+  field: FieldInfoType;
   itemsLeftToPlace: number;
   indexesOfEmptyCells: Array<{ x: number; y: number }>;
-}): FieldStateType => {
+}): FieldInfoType => {
   const newField = args.field.map((row) => row.map((cell) => ({ ...cell })));
   let itemsLeftToPlace = args.itemsLeftToPlace;
   while (itemsLeftToPlace > 0) {
@@ -23,7 +23,7 @@ export const placeItemsIntoCells = (args: {
 };
 
 export const removeItemsFromCells = (args: {
-  field: FieldStateType;
+  field: FieldInfoType;
   itemsLeftToRemove: number;
 }) => {
   const newField = args.field.map((row) => row.map((cell) => ({ ...cell })));
@@ -50,8 +50,8 @@ export const setInitialFieldInfo = (args: {
   width: number;
   height: number;
   fillingPercentage: number;
-}): FieldStateType => {
-  const field = Array.from({ length: args.height }, (_, y) =>
+}): FieldInfoType => {
+  const field: FieldInfoType = Array.from({ length: args.height }, (_, y) =>
     Array.from({ length: args.width }, (_, x) => ({
       cellMode: 0,
       x,
@@ -82,9 +82,9 @@ export const setInitialFieldInfo = (args: {
 export const updateSize = (args: {
   width: number;
   height: number;
-  prevFieldInfo: FieldStateType;
+  prevFieldInfo: FieldInfoType;
   fillingPercentage: number;
-}): FieldStateType => {
+}): FieldInfoType => {
   const fillingProbability: number =
     args.fillingPercentage > 100
       ? 1
@@ -92,20 +92,22 @@ export const updateSize = (args: {
         ? 0
         : args.fillingPercentage / 100;
   const indexesToAdjust: Array<{ x: number; y: number }> = [];
-  const newFieldInfo = Array.from({ length: args.height }, (_, y) =>
-    Array.from({ length: args.width }, (_, x) => {
-      if (args.prevFieldInfo[y] && args.prevFieldInfo[y][x]) {
-        return args.prevFieldInfo[y][x];
-      } else {
-        indexesToAdjust.push({ y, x });
-        return {
-          cellMode: 0,
-          x,
-          y,
-          id: `${nanoid(10)}`,
-        };
-      }
-    })
+  const newFieldInfo: FieldInfoType = Array.from(
+    { length: args.height },
+    (_, y) =>
+      Array.from({ length: args.width }, (_, x) => {
+        if (args.prevFieldInfo[y] && args.prevFieldInfo[y][x]) {
+          return args.prevFieldInfo[y][x];
+        } else {
+          indexesToAdjust.push({ y, x });
+          return {
+            cellMode: 0,
+            x,
+            y,
+            id: `${nanoid(10)}`,
+          };
+        }
+      })
   );
   const itemsAlreadyPlaced = newFieldInfo
     .flat()
@@ -114,7 +116,7 @@ export const updateSize = (args: {
     newFieldInfo.flat().length * fillingProbability
   );
   const itemsLeftToPlace = totalItemsToPlace - itemsAlreadyPlaced;
-  let fieldFilled: FieldStateType = newFieldInfo;
+  let fieldFilled: FieldInfoType = newFieldInfo;
   if (itemsLeftToPlace > 0) {
     if (indexesToAdjust.length < itemsLeftToPlace) {
       const wholeFieldIndexes = newFieldInfo
@@ -146,9 +148,9 @@ export const updateSize = (args: {
 export const updateFilling = (args: {
   width: number;
   height: number;
-  prevFieldInfo: FieldStateType;
+  prevFieldInfo: FieldInfoType;
   fillingPercentage: number;
-}): FieldStateType => {
+}): FieldInfoType => {
   const fillingProbability: number =
     args.fillingPercentage > 100
       ? 1
@@ -162,7 +164,7 @@ export const updateFilling = (args: {
     args.prevFieldInfo.flat().length * fillingProbability
   );
   const itemsLeftToPlace = totalItemsToPlace - itemsAlreadyPlaced;
-  let fieldFilled: FieldStateType = args.prevFieldInfo;
+  let fieldFilled: FieldInfoType = args.prevFieldInfo;
   const emptyCellsIndexes = args.prevFieldInfo
     .flat()
     .filter((cell) => cell.cellMode === 0)

@@ -1,30 +1,31 @@
-import React, { Dispatch } from "react";
-import { changeHandler, ActionsType, resetHandler, AppStateType } from "@/common/types";
+import React  from "react";
+import { changeHandler, resetHandler } from "@/common/types";
 import { radioToolbarStyle, formStyle, controlButtonsStyle, fieldSizesStyle } from "./style";
 import { Button } from "@/elements/Button";
 import { CustomInput } from "@/elements/CustomInput/CustomInput.index";
+import { useDispatch } from "react-redux";
+import { fieldActions } from "@/components/ControlPanel/redux";
 
 export type ControlPanelPropsType = {
-  dispatch: Dispatch<ActionsType>;
   fillingPercentage: number;
   width: number;
   height: number;
 };
 
 const onFillingPercentageChange: changeHandler = ({ ev, dispatch }) => {
-  dispatch({ type: "UPDATE_FILLING_PERCENTAGE", payload: +ev.target.value });
+  dispatch(fieldActions.updateFillingPercentage({ percentage: +ev.target.value }) );
 };
 
 const onWidthChange: changeHandler = ({ ev, dispatch }) => {
-  dispatch({ type: "UPDATE_WIDTH", payload: +ev.target.value });
+  dispatch(fieldActions.updateWidth({ width: +ev.target.value }));
 };
 
 const onHeightChange: changeHandler = ({ ev, dispatch }) => {
-  dispatch({ type: "UPDATE_HEIGHT", payload: +ev.target.value });
+  dispatch(fieldActions.updateHeight({ height: +ev.target.value }));
 };
 
 const onReset: resetHandler = ({ dispatch }) => {
-  dispatch({ type: "RESET" });
+  dispatch(fieldActions.reset());
 };
 
 const onSubmit = (e: React.SyntheticEvent) => {
@@ -32,7 +33,7 @@ const onSubmit = (e: React.SyntheticEvent) => {
 };
 
 const ControlPanel = (props: ControlPanelPropsType) => {
-  const { dispatch } = props;
+  const dispatch = useDispatch();
 
   return (
     <>

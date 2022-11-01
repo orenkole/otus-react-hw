@@ -1,57 +1,40 @@
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { SignInForm } from ".";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { appStyles } from "@/App/style";
-import { initialStateMock } from "@/mocks/initialStateMock";
-import userEvent from "@testing-library/user-event";
-import {signInFormReducer, LOGIN} from "@/components/SignInForm/redux";
-
-const dispatch = jest.fn();
+import { AuthStateMock } from "@/mocks/initialFieldMock";
+import { authActions, authReducer } from "@/components/SignInForm/redux";
+import { renderWithProviders } from "@/utils/test-utils";
 
 describe("Sign in form rendering", () => {
   test("renders SignInForm component", () => {
-    render(
-      <BrowserRouter>
-        <div css={appStyles}>
-          <Routes>
-            <Route path="/" element={<SignInForm dispatch={dispatch} state={initialStateMock} />} />
-          </Routes>
-        </div>
-      </BrowserRouter>,
+    renderWithProviders(
+      <div css={appStyles}>
+        <Routes>
+          <Route path="/" element={<SignInForm />} />
+        </Routes>
+      </div>,
     );
     expect(screen.getByText("Your login:")).toBeInTheDocument();
     expect(screen.getByText("Log in")).toBeInTheDocument();
     expect(screen.getByText("Sign up")).toBeInTheDocument();
   });
 
-  test("on submit SignInForm component", () => {
-    const dispatch = jest.fn();
-
-    render(
-      <BrowserRouter>
-        <div css={appStyles}>
-          <Routes>
-            <Route path="/" element={<SignInForm dispatch={dispatch} state={initialStateMock} />} />
-          </Routes>
-        </div>
-      </BrowserRouter>,
+  test("Call onSubmit", () => {
+    renderWithProviders(
+      <div css={appStyles}>
+        <Routes>
+          <Route path="/" element={<SignInForm />} />
+        </Routes>
+      </div>,
     );
-    const loginInput = screen.getByPlaceholderText("login");
-    fireEvent.change(loginInput, { target: { value: "Oleh" } });
-    const submitButton = screen.queryAllByText("Log in")[0];
-    if (submitButton) {
-      userEvent.click(submitButton);
-      expect(dispatch).toHaveBeenCalledWith({ type: "LOGIN", payload: "Oleh" });
-    }
   });
 });
 
 describe("Sign in form redux", () => {
   test("Login action should return state with login info", () => {
-    expect(signInFormReducer(initialStateMock, {
-      type: LOGIN,
-      payload: { login: "Oleh" }
-    })).toEqual({...initialStateMock, login: "Oleh"});
+    expect(authReducer(AuthStateMock, authActions.login({ login: "Oleh" })))
+      .toEqual({ ...AuthStateMock, login: "Oleh" });
   });
 });

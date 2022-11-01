@@ -1,6 +1,6 @@
-import { State } from "@/redux/state";
+import { AuthStateType, FieldStateType } from "@/common/types";
 
-export const initialStateMock: State = {
+export const initialFieldMock: FieldStateType = {
   fieldInfo: [
     [
       {
@@ -166,5 +166,8 @@ export const initialStateMock: State = {
   fillingPercentage: 0,
   width: 5,
   height: 5,
+};
+
+export const AuthStateMock: AuthStateType = {
   login: "",
 };

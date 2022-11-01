@@ -1,6 +1,3 @@
-import { Dispatch } from "react";
-import { ActionsType } from "@/common/types";
-
 // https://www.geeksforgeeks.org/how-to-create-a-ripple-effect-on-click-the-button/
 const handleRipple = (args: {
   e: React.MouseEvent;
@@ -19,14 +16,4 @@ const handleRipple = (args: {
   }, 300);
 };
 
-const handleClick = (args: {
-  e: React.MouseEvent;
-  ref: React.RefObject<HTMLDivElement>;
-  dispatch: Dispatch<ActionsType>;
-  payload: string;
-}) => {
-  handleRipple({ ...args });
-  args.dispatch({ type: "CELL_CLICK", payload: args.payload });
-};
-
-export { handleRipple, handleClick };
+export { handleRipple };

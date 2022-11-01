@@ -1,16 +1,12 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { screen, waitFor } from "@testing-library/react";
 import { Cell } from ".";
-import {CELL_CLICK, cellClickReducer} from "@/components/Cell/redux";
-import {initialStateMock} from "@/mocks/initialStateMock";
-import {cloneObj} from "@/utils/helperFunctions";
-
-const dispatch = jest.fn();
+import { renderWithProviders } from "@/utils/test-utils";
+import userEvent from "@testing-library/user-event";
 
 describe("Cell rendering", () => {
-  test("renders Cell component", () => {
-    render(
+  test("renders Cell component", async () => {
+    renderWithProviders(
       <Cell
         cellInfo={{
           cellMode: 1,
@@ -18,14 +14,14 @@ describe("Cell rendering", () => {
           y: 2,
           id: "1",
         }}
-        dispatch={dispatch}
       />,
     );
-    expect(screen.getByText("1")).toBeInTheDocument();
+    const cell = screen.getByText("1");
+    expect(cell).toBeInTheDocument();
   });
 
-  test("Fires event on cell click", () => {
-    render(
+  test("ripple effect", async () => {
+    renderWithProviders(
       <Cell
         cellInfo={{
           cellMode: 1,
@@ -33,24 +29,12 @@ describe("Cell rendering", () => {
           y: 2,
           id: "1",
         }}
-        dispatch={dispatch}
       />,
     );
-    const cell = screen.queryByText("1");
-    if (cell) {
-      userEvent.click(cell);
-      expect(dispatch).toHaveBeenCalledTimes(1);
-    }
-  });
-});
-
-describe("Cell reducer", () => {
-  test("Cell should change it's state on click", () => {
-    const newState = cloneObj(initialStateMock);
-    newState.fieldInfo[0][1].cellMode = 1;
-    expect(cellClickReducer(initialStateMock, {
-      type: CELL_CLICK,
-      payload: { id: "5LMc1bZvGS" }
-    })).toEqual(newState);
+    const cell = screen.getByText("1");
+    const ripple = screen.getByTestId("ripple");
+    await userEvent.click(cell);
+    await waitFor(() => expect(ripple).toHaveClass("active"));
+    await waitFor(() => expect(ripple).not.toHaveClass("active"));
   });
 });
