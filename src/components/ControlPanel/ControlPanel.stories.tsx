@@ -1,13 +1,19 @@
 import React from "react";
 import { Story as StoryType } from "@storybook/react";
 import { ControlPanel, ControlPanelPropsType } from ".";
+import { setupStore } from "@/redux/store";
+import { Provider } from "react-redux";
 
 const Story = {
   title: "Control Panel",
   component: ControlPanel,
 };
 
-const Template: StoryType<ControlPanelPropsType> = (args) => <ControlPanel {...args} />;
+const Template: StoryType<ControlPanelPropsType> = (args) => (
+  <Provider store={setupStore()}>
+    <ControlPanel {...args} />
+  </Provider>
+);
 
 export const Default = Template.bind({});
 Default.args = {
